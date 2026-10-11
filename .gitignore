@@ -359,7 +359,11 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+
+
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
 vcpkg_installed/
+
+Volumetric-SIGGRAPH.vcxproj
