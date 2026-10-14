@@ -368,4 +368,9 @@ vcpkg_installed/
 
 Volumetric-SIGGRAPH.vcxproj
 
-#
+#more 
+
+build/
+build_main.dSYM/
+/build_main
+

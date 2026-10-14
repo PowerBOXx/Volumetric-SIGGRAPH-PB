@@ -1,5 +1,0 @@
----
-triple:          'arm64-apple-darwin'
-binary-path:     '/Users/powerbox/Works/Volumetric-SIGGRAPH-PB/Volumetric-SIGGRAPH/build_main'
-relocations:     []
-...

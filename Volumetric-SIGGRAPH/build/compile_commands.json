@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/Users/powerbox/Works/Volumetric-SIGGRAPH-PB/Volumetric-SIGGRAPH/build",
-  "command": "/Library/Developer/CommandLineTools/usr/bin/clang++  -isystem /Users/powerbox/Works/Volumetric-SIGGRAPH-PB/Volumetric-SIGGRAPH/build/vcpkg_installed/arm64-osx/include -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -o CMakeFiles/Volumetric-SIGGRAPH.dir/main.cpp.o -c /Users/powerbox/Works/Volumetric-SIGGRAPH-PB/Volumetric-SIGGRAPH/main.cpp",
-  "file": "/Users/powerbox/Works/Volumetric-SIGGRAPH-PB/Volumetric-SIGGRAPH/main.cpp",
-  "output": "CMakeFiles/Volumetric-SIGGRAPH.dir/main.cpp.o"
-}
-]
