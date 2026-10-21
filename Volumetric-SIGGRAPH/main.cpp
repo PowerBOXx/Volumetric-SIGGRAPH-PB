@@ -79,7 +79,9 @@ int main() {
         glUniform1f(glGetUniformLocation(shadertri.ID, "u_radius"), 1.0f);
         glUniform1f(glGetUniformLocation(shadertri.ID, "u_sigma_a"), 0.3f);
         glUniform3f(glGetUniformLocation(shadertri.ID, "u_scatter"), 0.8f, 0.2f, 0.3f);
-
+        glUniform3f(glGetUniformLocation(shadertri.ID, "u_background_color"), 0.5f, 0.8f, 0.9f);
+        glUniform3f(glGetUniformLocation(shadertri.ID, "u_light_color"), 0.55f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(shadertri.ID, "u_light_position"), 0.0f, 2.0f, -2.0f);  
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);

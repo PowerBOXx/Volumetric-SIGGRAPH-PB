@@ -6,6 +6,9 @@ uniform vec3 u_sphere_center;
 uniform float u_radius;
 uniform float u_sigma_a;
 uniform vec3 u_scatter;
+uniform vec3 u_background_color;
+uniform vec3 u_light_color;
+uniform vec3 u_light_position;
 
 bool intersectSphere(vec3 ro, vec3 rd, vec3 sphere_center, float radius, out float t0, out float t1) {
     vec3 oc = ro - sphere_center; 
@@ -25,32 +28,44 @@ bool intersectSphere(vec3 ro, vec3 rd, vec3 sphere_center, float radius, out flo
     return t0 >= 0.0; 
 }
 
-vec3 traceScene(vec3 ro, vec3 rd) {    
-    vec3 background_color = vec3(0.5, 0.8, 0.9);
-
+vec3 traceScene(vec3 ro, vec3 rd) {  
     float t0, t1;
-    if (intersectSphere(ro, rd, u_sphere_center, u_radius, t0, t1)) 
+    if (!intersectSphere(ro, rd, u_sphere_center, u_radius, t0, t1)) 
     { 
-        vec3 p1 = ro + rd * t0; 
-        vec3 p2 = ro + rd * t1; 
-        float dist = length(p2 - p1); 
-        float transmission = exp(-dist * u_sigma_a); 
-        return background_color * transmission + u_scatter * (1.0 - transmission); 
+        return u_background_color; 
     }
-    else 
-    { 
-        return background_color; 
+
+    int nSteps = 24;
+    float stepSize = (t1 - t0) / float(nSteps);
+
+    float transparency = 1.0;
+    vec3 result = vec3(0.0); 
+
+    for (int i = 0; i < nSteps; ++i) {
+        float t = t0 + (float(i) + 0.5) * stepSize; 
+        
+        vec3 samplePos = ro + rd * t;
+
+        float sample_attenuation = exp(-stepSize * u_sigma_a);
+        transparency *= sample_attenuation;
+
+        vec3 light_dir = normalize(u_light_position - samplePos);
+    
+        float lt0, lt1;
+        if (intersectSphere(samplePos, light_dir, u_sphere_center, u_radius, lt0, lt1)) {
+            float light_attenuation = exp(-lt1 * u_sigma_a);
+            result += transparency * u_light_color * light_attenuation * stepSize;
+        }
     }
+    return u_background_color * transparency + result;
 }
 
 void main() {
-    //uv
-    vec2 fragCoord = gl_FragCoord.xy;
-    float x = (2.0 * (fragCoord.x + 0.5) / u_resolution.x - 1.0) * (u_resolution.x / u_resolution.y);
-    float y = (1.0 - 2.0 * (fragCoord.y + 0.5) / u_resolution.y);
+    vec2 uv = (gl_FragCoord.xy / u_resolution.xy) * 2.0 - 1.0;
+    uv.x *= u_resolution.x / u_resolution.y;
 
     vec3 ro = vec3(0.0, 0.0, 0.0);
-    vec3 rd = normalize(vec3(x, y, -1.0));
+    vec3 rd = normalize(vec3(uv, -1.0));
 
     vec3 color = traceScene(ro, rd);
     FragColor = vec4(color, 1.0);
