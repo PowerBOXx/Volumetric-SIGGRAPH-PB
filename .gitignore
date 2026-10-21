@@ -369,4 +369,5 @@ vcpkg_installed/
 #more 
 
 build/
+.vscode/
 
