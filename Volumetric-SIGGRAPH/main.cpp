@@ -69,7 +69,7 @@ int main() {
         glfwGetFramebufferSize(window, &width, &height);
         glViewport(0, 0, width, height);
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         shadertri.use();
@@ -77,11 +77,15 @@ int main() {
         glUniform2f(glGetUniformLocation(shadertri.ID, "u_resolution"), (float)width, (float)height);
         glUniform3f(glGetUniformLocation(shadertri.ID, "u_sphere_center"), 0.0f, 0.0f, -2.0f);
         glUniform1f(glGetUniformLocation(shadertri.ID, "u_radius"), 1.0f);
-        glUniform1f(glGetUniformLocation(shadertri.ID, "u_sigma_a"), 0.3f);
+        glUniform1f(glGetUniformLocation(shadertri.ID, "u_sigma_a"), 0.5f);
+        glUniform1f(glGetUniformLocation(shadertri.ID, "u_sigma_s"), 0.5f);
+        glUniform1f(glGetUniformLocation(shadertri.ID, "u_g"), 0.0f);
+        glUniform1f(glGetUniformLocation(shadertri.ID, "u_density"), 0.6f);
         glUniform3f(glGetUniformLocation(shadertri.ID, "u_scatter"), 0.8f, 0.2f, 0.3f);
-        glUniform3f(glGetUniformLocation(shadertri.ID, "u_background_color"), 0.5f, 0.8f, 0.9f);
-        glUniform3f(glGetUniformLocation(shadertri.ID, "u_light_color"), 0.55f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(shadertri.ID, "u_background_color"), 0.3f, 0.5f, 0.47f);
+        glUniform3f(glGetUniformLocation(shadertri.ID, "u_light_color"), 20.0f, 20.0f, 20.0f);
         glUniform3f(glGetUniformLocation(shadertri.ID, "u_light_position"), 0.0f, 2.0f, -2.0f);  
+        
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
